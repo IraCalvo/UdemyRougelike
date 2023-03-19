@@ -21,40 +21,56 @@ public class PlayerController : MonoBehaviour
     public Transform gunArm;
     Vector3 mousePos;
     Vector3 screenPoint;
-    Camera camera;
 
-    public GameObject bulletToFire;
-    public Transform firePoint;
-    public float timeBetweenShots;
-    private float shotCounter;
     private float dashCooldownCounter;
     [HideInInspector]
     public float dashCounter;
     public int dashSFX;
-    public int shootSFX;
 
     [HideInInspector]
     public bool canMove = true;
+
+    public List<Gun> availableGuns = new List<Gun>();
+    [HideInInspector]
+    public int currentGun;
 
 
     void Awake()
     {
         instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
     {
-        camera = Camera.main;
         activeMoveSpeed = moveSpeed;
+        UIController.instance.currentGun.sprite = availableGuns[currentGun].weaponUI;
+        UIController.instance.gunText.text = availableGuns[currentGun].weaponName;
     }
 
     void Update()
     {
         MovePlayer();
         Dash();
-        ShootBullets();
         RotateGunArm();
         FlipCharacterSprites();
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (availableGuns.Count > 0)
+            {
+                currentGun++;
+                if (currentGun >= availableGuns.Count)
+                {
+                    currentGun = 0;
+                }
+                SwitchGun();
+            }
+            else
+            {
+                Debug.Log("No Guns!?");
+            }
+        }
     }
 
     public void MovePlayer()
@@ -115,35 +131,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ShootBullets()
-    {
-        if(Input.GetMouseButtonDown(0) && !LevelManager.instance.isPaused)
-        {
-            Instantiate(bulletToFire, firePoint.position, firePoint.rotation);
-            shotCounter = timeBetweenShots;
-            AudioManager.instance.PlaySFX(shootSFX);
-        }
-
-        if(Input.GetMouseButton(0))
-        {
-            shotCounter -= Time.deltaTime;
-            
-            if(shotCounter <= 0)
-            {
-                Instantiate(bulletToFire, firePoint.position, firePoint.rotation);
-                AudioManager.instance.PlaySFX(shootSFX);
-
-                shotCounter = timeBetweenShots;
-            }
-        }
-    }
 
     public void RotateGunArm()
     {
         if(!LevelManager.instance.isPaused)
         {
             mousePos = Input.mousePosition;
-            screenPoint = camera.WorldToScreenPoint(transform.localPosition);
+            screenPoint = CameraController.instance.MainCamera.WorldToScreenPoint(transform.localPosition);
 
             Vector2 offset = new Vector2(mousePos.x - screenPoint.x, mousePos.y - screenPoint.y);
             float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
@@ -163,5 +157,17 @@ public class PlayerController : MonoBehaviour
             transform.localScale = Vector3.one;
             gunArm.localScale = Vector3.one;
         }
+    }
+    
+    public void SwitchGun()
+    {
+        foreach(Gun theGun in availableGuns)
+        {
+            theGun.gameObject.SetActive(false);
+        }
+        availableGuns[currentGun].gameObject.SetActive(true);
+        Debug.Log("Gun was switched to be active");
+        UIController.instance.currentGun.sprite = availableGuns[currentGun].weaponUI;
+        UIController.instance.gunText.text = availableGuns[currentGun].weaponName;
     }
 }

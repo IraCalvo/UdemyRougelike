@@ -98,11 +98,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 6030676477022047450}
   sr: {fileID: 6030676477520246870}
-  rangeToChasePlayer: 7
   anim: {fileID: 6030676477022047455}
+  patrolPoints: []
+  shouldChasePlayer: 1
+  shouldRunAway: 0
+  shouldShoot: 1
+  shouldWander: 0
+  shouldPatrol: 0
   health: 150
   moveSpeed: 3
   shootRange: 10
+  rangeToChasePlayer: 7
+  runAwayRange: 0
+  fireRate: 1
+  wanderLength: 0
+  wanderPauseLength: 0
   deathSplatters:
   - {fileID: 5594351574705334076, guid: dc461bffa5edb7f4480c9da17b61d2a1, type: 3}
   - {fileID: 4609739727659405194, guid: 940eb84578092554a87798f86087b56c, type: 3}
@@ -112,10 +122,12 @@ MonoBehaviour:
   deathSound: 1
   hurtSound: 2
   shootSFX: 13
-  shouldShoot: 1
   bullet: {fileID: 7254037705501984281, guid: 63359ca4a0531a246bf82fee358d7fe3, type: 3}
   firePoint: {fileID: 3804330618481746877}
-  fireRate: 1
+  shouldDropItems: 1
+  itemsToDrop:
+  - {fileID: 1014390669640230678, guid: fc77a74cbce9737498b6a3a0f078741c, type: 3}
+  itemDropPercent: 10
 --- !u!95 &6030676477022047455
 Animator:
   serializedVersion: 4
