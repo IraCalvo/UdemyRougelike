@@ -443,7 +443,7 @@ MonoBehaviour:
   dashInvincibility: 0.5
   dashCooldown: 1
   rb: {fileID: 8409755421692173909}
-  sr: {fileID: 8409755420535226811}
+  bodySR: {fileID: 8409755420535226811}
   anim: {fileID: 8409755421692173911}
   gunArm: {fileID: 8409755420640864012}
   dashCounter: 0

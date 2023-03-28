@@ -139,6 +139,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1990697728859530341, guid: 04242c49ba45e4b44abff83572c6a86e, type: 3}
+      propertyPath: centerEnd
+      value: 
+      objectReference: {fileID: 6576586946699667348, guid: fda0b8cec55995f48b5bc1a581b5eb22, type: 3}
+    - target: {fileID: 1990697728859530341, guid: 04242c49ba45e4b44abff83572c6a86e, type: 3}
       propertyPath: startRoomColor.a
       value: 1
       objectReference: {fileID: 0}

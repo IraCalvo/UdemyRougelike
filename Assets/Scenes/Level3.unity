@@ -209,7 +209,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2006719387018279090, guid: 9ced2c7261f86234ba67624d92853f9c, type: 3}
       propertyPath: nextLevel
-      value: VictoryScreen
+      value: BossLevel
       objectReference: {fileID: 0}
     - target: {fileID: 2006719387018279100, guid: 9ced2c7261f86234ba67624d92853f9c, type: 3}
       propertyPath: m_RootOrder

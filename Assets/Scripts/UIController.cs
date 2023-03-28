@@ -25,6 +25,7 @@ public class UIController : MonoBehaviour
 
     public Image currentGun;
     public TextMeshProUGUI gunText;
+    public Slider bossHealthBar;
 
     void Awake()
     {
@@ -38,6 +39,10 @@ public class UIController : MonoBehaviour
         
         currentGun.sprite = PlayerController.instance.availableGuns[PlayerController.instance.currentGun].weaponUI;
         gunText.text = PlayerController.instance.availableGuns[PlayerController.instance.currentGun].weaponName;
+        if(CameraController.instance.isBossRoom == true)
+        {
+            mapDisplay.SetActive(false);
+        }
     }
 
     void Update()
@@ -70,12 +75,14 @@ public class UIController : MonoBehaviour
     {
         SceneManager.LoadScene(newGameScene);
         Time.timeScale = 1f;
+        Destroy(PlayerController.instance.gameObject);
     }
 
     public void ReturnToMainMenu()
     {
         SceneManager.LoadScene(mainMenuScene);
         Time.timeScale = 1f;
+        Destroy(PlayerController.instance.gameObject);
     }
 
     public void Resume()

@@ -25,6 +25,11 @@ public class Bullet : MonoBehaviour
         {
             otherCollider.GetComponent<EnemyController>().DamageEnemy(damageToDeal);
         }
+        if(otherCollider.tag == "Boss")
+        {
+            BossController.instance.TakeDamage(damageToDeal);
+            Instantiate(BossController.instance.hitFX, transform.position, transform.rotation);
+        }
     }
 
     private void OnBecameInvisible()

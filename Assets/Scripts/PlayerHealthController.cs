@@ -27,7 +27,7 @@ public class PlayerHealthController : MonoBehaviour
         maxHealth = CharacterTracker.instance.maxHealth;
         currentHealth = CharacterTracker.instance.currentHealth;
 
-        //currentHealth = maxHealth;
+        currentHealth = maxHealth;
         UIController.instance.healthSlider.value = currentHealth;
         UIController.instance.healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
     }
@@ -40,7 +40,7 @@ public class PlayerHealthController : MonoBehaviour
 
             if(invincibilityCounter <= 0)
             {
-                PlayerController.instance.sr.color = new Color(PlayerController.instance.sr.color.r, PlayerController.instance.sr.color.g, PlayerController.instance.sr.color.b,1f);
+                PlayerController.instance.bodySR.color = new Color(PlayerController.instance.bodySR.color.r, PlayerController.instance.bodySR.color.g, PlayerController.instance.bodySR.color.b,1f);
             }
         }
     }
@@ -52,11 +52,15 @@ public class PlayerHealthController : MonoBehaviour
             AudioManager.instance.PlaySFX(playerHurtSFX);
             currentHealth--;
             invincibilityCounter = invincibilityLength;
-            PlayerController.instance.sr.color = new Color(PlayerController.instance.sr.color.r, PlayerController.instance.sr.color.g, PlayerController.instance.sr.color.b,0.5f);
+            PlayerController.instance.bodySR.color = new Color(PlayerController.instance.bodySR.color.r, PlayerController.instance.bodySR.color.g, PlayerController.instance.bodySR.color.b,0.5f);
             if(currentHealth <= 0)
             {
                 PlayerController.instance.gameObject.SetActive(false);
                 UIController.instance.deathScreen.SetActive(true);
+                if(UIController.instance.bossHealthBar == true)
+                {
+                    UIController.instance.bossHealthBar.gameObject.SetActive(false);
+                }
                 AudioManager.instance.PlayGameOver();
                 AudioManager.instance.PlaySFX(playerDieSFX);
             }
@@ -68,7 +72,7 @@ public class PlayerHealthController : MonoBehaviour
     public void MakeInvincible(float length)
     {
         invincibilityCounter = length;
-        PlayerController.instance.sr.color = new Color(PlayerController.instance.sr.color.r, PlayerController.instance.sr.color.g, PlayerController.instance.sr.color.b,0.5f);
+        PlayerController.instance.bodySR.color = new Color(PlayerController.instance.bodySR.color.r, PlayerController.instance.bodySR.color.g, PlayerController.instance.bodySR.color.b,0.5f);
     }
 
     public void HealPlayer(int healAmount)

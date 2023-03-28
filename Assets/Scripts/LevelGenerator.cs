@@ -12,10 +12,12 @@ public class LevelGenerator : MonoBehaviour
     private List<GameObject> layoutRoomObjects = new List<GameObject>();
     public RoomPrefabs rooms;
     public Transform generatorPoint;
+
     public Color startRoomColor;
     public Color endRoomColor;
     public Color chestRoomColor;
     public Color shopColor;
+
     public int distanceToEnd;
     public int minDistanceToShop;
     public int maxDistanceToShop;
@@ -87,8 +89,10 @@ public class LevelGenerator : MonoBehaviour
 
             selectedDirection = (Direction)Random.Range(0, 4);
             MoveGenerationPoint();
+
             while(Physics2D.OverlapCircle(generatorPoint.position, 0.2f, whatIsRoom))
             {
+                selectedDirection = (Direction)Random.Range(0, 4);
                 MoveGenerationPoint();
             }
         }

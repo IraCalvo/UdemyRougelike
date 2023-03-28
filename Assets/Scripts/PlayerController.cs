@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
 
     public Rigidbody2D rb;
-    public SpriteRenderer sr;
+    public SpriteRenderer bodySR;
     public Animator anim;
 
     public Transform gunArm;
